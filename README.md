@@ -1,10 +1,10 @@
-# react-vite-tailwind-boilerplate
-Pretty self explanatory but this is a simple boilerplate that is great for starting a brand new React application with.
+# [YASAC: Yet Another Seasonal Anime Chart](https://yasac.armaan.cc)
+<img src="demo.png" />
 
-What it includes:
-- Vite
-- React
-- TailwindCSS
-- TypeScript
+## ❓ Why make yet another?
+There's nothing wrong with another websites like AniChart,
+but my personal problem with them was I wanted to organize and emphasize certain data (such as whether the show would be on Crunchyroll, what day and time it airs, etc.)
 
-I also included `tailwindcss-children` and a few `not-*` utilities in the `tailwind.config.js` file
+In short, this is an anime chart designed for myself, by myself (although if you like to use it too feel free!)
+
+Another fun fact: YASAC uses the same API as AniChart does.
