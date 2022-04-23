@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import cn from "classnames";
 import { IoPencilOutline, IoClose } from "react-icons/io5";
 import { Menu, Transition, Portal } from "@headlessui/react";
@@ -18,6 +18,7 @@ export const StatusDropdown = ({ status, setStatus }: StatusDropdownProps) => {
   const [targetElement, setTargetElement] =
     React.useState<HTMLDivElement | null>(null);
   const [popperElement, setPopperElement] = React.useState(null);
+  const [elementsWithScrollbarHidden, setElementsWithScrollbarHidden] = useState<HTMLElement[]>([])
   const { styles, attributes } = usePopper(targetElement, popperElement, {
     placement: "bottom",
     modifiers: [
@@ -37,11 +38,14 @@ export const StatusDropdown = ({ status, setStatus }: StatusDropdownProps) => {
           {({ open }) => {
             useEffect(() => {
               if (open) {
+                let _elementsWithOverflow = elementsWithOverflow()
+                setElementsWithScrollbarHidden(_elementsWithOverflow)
                 hideScrollbar();
-                elementsWithOverflow().forEach((el) => hideScrollbar(el));
+                _elementsWithOverflow.forEach((el) => hideScrollbar(el));
               } else {
                 showScrollbar();
-                elementsWithOverflow().forEach((el) => showScrollbar(el));
+                elementsWithScrollbarHidden.forEach((el) => showScrollbar(el));
+                setElementsWithScrollbarHidden([])
               }
             }, [open]);
 
