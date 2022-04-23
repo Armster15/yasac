@@ -1,6 +1,5 @@
 import type { RawShow, Show, DaysOfWeek, Status } from "$/types";
 import { allEqual } from "$/utils";
-import * as YAML from "yaml";
 
 /**
  * Turns an array of `RawShow` objects to an array of `Show` objects
