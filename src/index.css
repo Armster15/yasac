@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.focus-ring {
+    @apply focus-visible:ring-4 focus-visible:ring-cyan-400 focus-visible:ring-offset-4 outline-none focus-visible:duration-[0ms];
+}
+
+.base-btn {
+    @apply duration-150 rounded px-2 py-2 not-active:hover:opacity-80 not-focus-visible:not-active:focus:ring-2 !focus-ring
+}
+
+.white-btn {
+    @apply duration-150 rounded p-2 border-2 not-active:hover:shadow active:bg-gray-100 not-active:focus:ring-2 ring-gray-300;
+}
+
+.dropdown-btn {
+    @apply flex rounded-md items-center w-full px-2 py-2 text-sm font-medium;
+}
+
+.fire:before {
+	content: "\01F525\00a0"; /* Fire emoji with a space */
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+.hide-arrows::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.hide-arrows[type=number] {
+  -moz-appearance: textfield;
+}
