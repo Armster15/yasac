@@ -32,8 +32,8 @@ export const Show = ({ showId }: { showId: ShowType["id"] }) => {
             }
           }}
         />
-        <div className="flex-grow mx-3 my-[6px] space-y-1 block">
-          <h2 className="font-semibold">{show.title.preferred}</h2>
+        <div className="flex-grow mx-3 my-[6px] space-y-1 block text-gray-700">
+          <h2 className="text-black font-semibold">{show.title.preferred}</h2>
           
           {show.airingTime && <p><span className="sr-only">Airs at </span>{show.airingTime}</p>}
 
