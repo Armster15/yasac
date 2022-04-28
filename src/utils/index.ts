@@ -9,7 +9,7 @@ export const elementsWithOverflow = () => {
   let elements: HTMLElement[] = [];
   [...document.querySelectorAll<HTMLElement>("body *")].forEach((e) => {
     let overflowX = window.getComputedStyle(e)['overflowX'];
-    if ((overflowX  === 'scroll' || overflowX  === 'auto') && (e.scrollHeight - e.clientHeight > 0)) elements.push(e);
+    if (overflowX  === 'scroll' || overflowX  === 'auto') elements.push(e);
   });
   return elements;
 };
