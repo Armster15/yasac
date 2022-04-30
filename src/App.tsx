@@ -14,10 +14,18 @@ import { Tabs, Tab } from "./components/Tabs";
 import { SeasonPicker } from "./components/SeasonPicker";
 import { useFetchShows } from "./hooks/use-fetch-shows";
 
+const filterSelectLabels: { [key in Status]: string } = {
+  "hype": "Hype",
+  "will-watch": "Will Watch",
+  "maybe": "Maybe",
+  "not-watching": "Not Watching",
+  "no-status": "No Status"
+}
+
 export const App: React.FC = () => {
   const [year, setYear] = useState<number | undefined>(undefined);
   const [season, setSeason] = useState<Seasons | undefined>(undefined);
-  const [_, setFilter] = useAtom(filterAtom);
+  const [filter, setFilter] = useAtom(filterAtom);
   const [display, setDisplay] = useState<"grid" | "column">("grid")
   const [shows, setShows] = useAtom(showsAtom);
   const {fetch: fetchFromApi, result: { loading, data, error } } = useFetchShows()
@@ -98,6 +106,10 @@ export const App: React.FC = () => {
             if (newFilters.length === 0) setFilter(undefined);
             else setFilter(newFilters);
           }}
+          value={filter ? filter.map(status => ({
+            value: status,
+            label: filterSelectLabels[status]
+          })) : []}
           options={[
             { value: "hype", label: "Hype" },
             { value: "will-watch", label: "Will Watch" },
