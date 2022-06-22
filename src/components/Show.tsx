@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAtom } from "jotai";
 import NoCrunchyrollIcon from "$/media/no-crunchyroll.webp";
 import HidiveIcon from "$/media/hidive.webp";
+import NetflixIcon from "$/media/netflix.webp";
 import PlaceholderImage from "$/media/placeholder_100x141.png";
 
 import { filterAtom } from "$/atoms";
@@ -48,6 +49,13 @@ export const Show = ({ showId }: { showId: ShowType["id"] }) => {
                 <div className="flex space-x-1 items-center">
                   <img loading="lazy" aria-hidden={true} className="h-[1.25em]" src={HidiveIcon} />
                   <p>On HIDIVE</p>
+                </div>
+              )}
+
+              {show.streamingSites.includes("Netflix") && (
+                <div className="flex space-x-1 items-center">
+                  <img loading="lazy" aria-hidden={true} className="h-[1.25em]" src={NetflixIcon} />
+                  <p>On Netflix</p>
                 </div>
               )}
             </div>
