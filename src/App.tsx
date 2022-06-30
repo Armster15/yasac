@@ -167,7 +167,7 @@ export const App: React.FC = () => {
                 }
 
                 return (
-                  <Disclosure defaultOpen={true}>
+                  <Disclosure defaultOpen={true} key={dayOfWeek}>
                     {({ open }) => (
                       <div className="space-y-3 mb-8">
                         <div className="flex items-start space-x-3">
