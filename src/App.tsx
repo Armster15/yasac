@@ -75,30 +75,30 @@ export const App: React.FC = () => {
     []
   );
 
-  // if (loading || error)
-  //   return (
-  //     <Portal>
-  //       <div className="fixed inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center text-white p-12">
-  //         {(loading && !error) && <LoadingIcon className="h-[20vh]" />}
-  //         {error && (
-  //           <>
-  //             <IoClose className="text-[35vh]" />
-  //             <p>An unexpected error occured. Please report this error.</p>
-  //             <Disclosure>
-  //               <Disclosure.Button className="border-2 rounded px-2 py-1 mt-5 active:bg-gray-100 active:bg-opacity-30 focus-ring ring-offset-[#929599]">
-  //                 Show Error
-  //               </Disclosure.Button>
-  //               <Disclosure.Panel>
-  //                 <pre className="overflow-auto max-h-[60vh] whitespace-pre-wrap border-2 rounded bg-white text-black mt-5">
-  //                   {JSON.stringify(error, null, 2)}
-  //                 </pre>
-  //               </Disclosure.Panel>
-  //             </Disclosure>
-  //           </>
-  //         )}
-  //       </div>
-  //     </Portal>
-  //   );
+  if (loading || error)
+    return (
+      <Portal>
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center text-white p-12">
+          {(loading && !error) && <LoadingIcon className="h-[20vh]" />}
+          {error && (
+            <>
+              <IoClose className="text-[35vh]" />
+              <p>An unexpected error occured. Please report this error.</p>
+              <Disclosure>
+                <Disclosure.Button className="border-2 rounded px-2 py-1 mt-5 active:bg-gray-100 active:bg-opacity-30 focus-ring ring-offset-[#929599]">
+                  Show Error
+                </Disclosure.Button>
+                <Disclosure.Panel>
+                  <pre className="overflow-auto max-h-[60vh] whitespace-pre-wrap border-2 rounded bg-white text-black mt-5">
+                    {JSON.stringify(error, null, 2)}
+                  </pre>
+                </Disclosure.Panel>
+              </Disclosure>
+            </>
+          )}
+        </div>
+      </Portal>
+    );
   return (
     <div className="min-h-screen p-6 md:p-8 space-y-3">
       <h1 className="text-2xl font-medium">
