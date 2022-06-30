@@ -59,6 +59,7 @@ export const formatShows = (rawShows: RawShow[]) => {
     // ====== 4. Add data new formatted structure ======
     shows.push({
       id: rawShow.id,
+      url: rawShow.siteUrl,
       title: {
         ...rawShow.title,
         preferred:

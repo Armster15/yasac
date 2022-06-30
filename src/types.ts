@@ -1,6 +1,7 @@
 export type RawShow = {
   __typename: string;
   id: number;
+  siteUrl: string;
   title: {
     english: string | null;
     romaji: string | null;
@@ -39,6 +40,7 @@ export type DaysOfWeek =
 
 export type Show = {
   id: number;
+  url: string;
   title: {
     english: string | null;
     romaji: string | null;

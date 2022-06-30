@@ -16,6 +16,7 @@ export const RAW_GET_SEASONAL_ANIME = `
         sort: TITLE_ENGLISH
       ) {
         id,
+        siteUrl,
         title {
           english,
           romaji,
