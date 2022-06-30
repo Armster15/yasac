@@ -53,7 +53,7 @@ export const Show = ({ showId }: { showId: ShowType["id"] }) => {
             show.airing.nextAiringEp.dateObj.getTime() - new Date().getTime() >
               0 && (
               <p title={format(show.airing.nextAiringEp.dateObj, "PPPP 'at' p '('O')'")}>
-                <abbr>Ep</abbr> {show.airing.nextAiringEp.episode} airs in{" "}
+                <abbr>Ep</abbr> {show.airing.nextAiringEp.episode} airs {" "}
                 {formatDistance(show.airing.nextAiringEp.dateObj, new Date(), {
                   addSuffix: true,
                 })}
