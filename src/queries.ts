@@ -25,10 +25,11 @@ export const RAW_GET_SEASONAL_ANIME = `
           site
         },
         coverImage {
-          medium
+          large
         },
         airingSchedule {
           nodes {
+            episode
             airingAt
           }
         }  

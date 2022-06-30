@@ -11,6 +11,7 @@
     "@headlessui/react": "^1.5.0",
     "accessible-button": "gist:bb4a1a81b372b8a214307de324622696",
     "classnames": "^2.3.1",
+    "date-fns": "^2.28.0",
     "graphql": "^16.3.0",
     "jotai": "^1.6.3",
     "react": "^17.0.0",

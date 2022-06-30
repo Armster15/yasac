@@ -15,6 +15,7 @@ export const formatShows = (rawShows: RawShow[]) => {
     // ====== 1. Get airing day of week and time of airing ======
     let airingDaysOfWeek: DaysOfWeek[] = [] // ["Monday", "Monday", "Monday", "Tuesday", "Monday", ...]
     let airingTimes: string[] = []
+    let allAiringDayInfo: {dateObj: Date; episode: number}[] = []
 
     rawShow.airingSchedule.nodes.map((node) => {
       // a. Retrieve epoch time
@@ -35,13 +36,19 @@ export const formatShows = (rawShows: RawShow[]) => {
 
       airingDaysOfWeek.push(dayOfWeek);
       airingTimes.push(airingTime);
+      allAiringDayInfo.push({
+         dateObj: date,
+         episode: node.episode
+      });
     });
 
     let airingDayOfWeek: DaysOfWeek | "NoDayOfWeek"
     let airingTime: string | undefined = undefined;
+    let nextAiringDayInfo: {dateObj: Date; episode: number} | undefined;
 
     airingDayOfWeek = allEqual(airingDaysOfWeek) ? airingDaysOfWeek[0] : "NoDayOfWeek"
     airingTime = allEqual(airingTimes) ? airingTimes[0] : undefined
+    nextAiringDayInfo = allAiringDayInfo.length >= 1 ? allAiringDayInfo[0] : undefined
 
     // ====== 2. Retrieve status ======
     let showInBackend = getShowInBackend(rawShow.id);
@@ -59,8 +66,11 @@ export const formatShows = (rawShows: RawShow[]) => {
           (rawShow.title.romaji ?? rawShow.title.native)!,
       },
       coverImage: rawShow.coverImage,
-      airingDayOfWeek: airingDayOfWeek,
-      airingTime: airingTime,
+      airing: {
+        dayOfWeek: airingDayOfWeek,
+        time: airingTime,
+        nextAiringEp: nextAiringDayInfo
+      },
       status: showInBackend?.status ?? "no-status",
       streamingSites: streamingSites,
     });
@@ -87,9 +97,9 @@ export const organizeShowsByDayOfWeek = (shows: Show[]) => {
 
   shows.forEach((show) => {
     // Copy of list of the shows for that specific day of week (ex. all the shows for Monday)
-    let showsForDayOfWeek = showsByDayOfWeek.get(show.airingDayOfWeek)!;
+    let showsForDayOfWeek = showsByDayOfWeek.get(show.airing.dayOfWeek)!;
     showsForDayOfWeek.push(show);
-    showsByDayOfWeek.set(show.airingDayOfWeek, showsForDayOfWeek);
+    showsByDayOfWeek.set(show.airing.dayOfWeek, showsForDayOfWeek);
   });
 
   return showsByDayOfWeek;

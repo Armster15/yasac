@@ -23,7 +23,7 @@ export const Status = ({ showId }: StatusProps) => {
   };
 
   return (
-    <div className="flex items-center space-x-1">
+    <div className="flex items-center space-x-1 pt-1">
       <span
         className={cn(
           "rounded-lg px-2 py-1 text-xs uppercase",

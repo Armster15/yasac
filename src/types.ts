@@ -10,11 +10,12 @@ export type RawShow = {
     site: string;
   }[];
   coverImage: {
-    /** 100x141 */
-    medium: string;
+    /** 230x327 */
+    large: string;
   };
   airingSchedule: {
     nodes: {
+      episode: number;
       airingAt: EpochTimeStamp;
     }[];
   };
@@ -46,11 +47,17 @@ export type Show = {
   };
   streamingSites: string[];
   coverImage: {
-    /** 100x141 */
-    medium: string;
+    /** 230x327 */
+    large: string;
   };
-  airingDayOfWeek: DaysOfWeek | "NoDayOfWeek";
-  airingTime?: string;
+  airing: {
+    dayOfWeek: DaysOfWeek | "NoDayOfWeek";
+    time?: string;
+    nextAiringEp?: {
+      dateObj: Date,
+      episode: number
+    }
+  }
   status: Status;
 };
 
