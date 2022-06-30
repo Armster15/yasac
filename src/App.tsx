@@ -40,16 +40,16 @@ export const App: React.FC = () => {
 
     let month = new Date().toLocaleString("en-US", { month: "long" });
 
-    if (month === "January" || month === "February" || month === "March")
+    if (month === "December" || month === "January" || month === "February")
       setSeason("WINTER");
-    else if (month === "April" || month === "May" || month === "June")
+    else if (month === "March" || month === "April" || month === "May")
       setSeason("SPRING");
-    else if (month === "July" || month === "August" || month === "September")
+    else if (month === "June" || month === "July" || month === "August")
       setSeason("SUMMER");
     else if (
+      month === "September" ||
       month === "October" ||
-      month === "November" ||
-      month === "December"
+      month === "November"
     )
       setSeason("FALL");
     else throw new Error("Invalid month (not supposed to happen)");
