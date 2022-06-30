@@ -21,11 +21,11 @@ export const Show = ({ showId }: { showId: ShowType["id"] }) => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex bg-white rounded shadow-sm hover:shadow-md duration-150">
         <img
           src={show.coverImage.large}
-          width={100}
-          className="object-cover"
+          width={115}
+          className="object-cover rounded-l"
           alt={`Cover Image for ${show.title.preferred}`}
           loading="lazy"
           onError={(e) => {
@@ -36,7 +36,7 @@ export const Show = ({ showId }: { showId: ShowType["id"] }) => {
             }
           }}
         />
-        <div className="flex-grow mx-3 my-[6px] space-y-1 block text-gray-700">
+        <div className="flex-grow mx-3 my-[8px] space-y-1 block text-gray-700">
           <h2 className="text-black font-semibold">{show.title.preferred}</h2>
 
           {show.airing.nextAiringEp &&
@@ -99,7 +99,7 @@ export const Show = ({ showId }: { showId: ShowType["id"] }) => {
           <Status showId={showId} />
         </div>
       </div>
-      <hr />
+      {/* <hr /> */}
     </>
   );
 };

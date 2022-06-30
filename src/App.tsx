@@ -4,6 +4,7 @@ import { useAtom } from "jotai";
 import { Portal, Disclosure } from "@headlessui/react";
 import { IoClose } from "react-icons/io5";
 import cn from "classnames";
+import { IoChevronUp, IoChevronDown } from "react-icons/io5";
 
 import { showsAtom, filterAtom } from "./atoms";
 import type { RawShow, Status, Seasons } from "./types";
@@ -26,7 +27,7 @@ export const App: React.FC = () => {
   const [year, setYear] = useState<number | undefined>(undefined);
   const [season, setSeason] = useState<Seasons | undefined>(undefined);
   const [filter, setFilter] = useAtom(filterAtom);
-  const [display, setDisplay] = useState<"grid" | "column">("grid");
+  const [display, setDisplay] = useState<"grid" | "legacy">("grid");
   const [shows, setShows] = useAtom(showsAtom);
   const {
     fetch: fetchFromApi,
@@ -74,30 +75,30 @@ export const App: React.FC = () => {
     []
   );
 
-  if (loading || error)
-    return (
-      <Portal>
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center text-white p-12">
-          {loading && <LoadingIcon className="h-[20vh]" />}
-          {error && (
-            <>
-              <IoClose className="text-[35vh]" />
-              <p>An unexpected error occured. Please report this error.</p>
-              <Disclosure>
-                <Disclosure.Button className="border-2 rounded px-2 py-1 mt-5 active:bg-gray-100 active:bg-opacity-30 focus-ring">
-                  Show Error
-                </Disclosure.Button>
-                <Disclosure.Panel>
-                  <pre className="overflow-auto max-h-[60vh] whitespace-pre-wrap border-2 rounded bg-white text-black mt-5">
-                    {JSON.stringify(error, null, 2)}
-                  </pre>
-                </Disclosure.Panel>
-              </Disclosure>
-            </>
-          )}
-        </div>
-      </Portal>
-    );
+  // if (loading || error)
+  //   return (
+  //     <Portal>
+  //       <div className="fixed inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center text-white p-12">
+  //         {(loading && !error) && <LoadingIcon className="h-[20vh]" />}
+  //         {error && (
+  //           <>
+  //             <IoClose className="text-[35vh]" />
+  //             <p>An unexpected error occured. Please report this error.</p>
+  //             <Disclosure>
+  //               <Disclosure.Button className="border-2 rounded px-2 py-1 mt-5 active:bg-gray-100 active:bg-opacity-30 focus-ring ring-offset-[#929599]">
+  //                 Show Error
+  //               </Disclosure.Button>
+  //               <Disclosure.Panel>
+  //                 <pre className="overflow-auto max-h-[60vh] whitespace-pre-wrap border-2 rounded bg-white text-black mt-5">
+  //                   {JSON.stringify(error, null, 2)}
+  //                 </pre>
+  //               </Disclosure.Panel>
+  //             </Disclosure>
+  //           </>
+  //         )}
+  //       </div>
+  //     </Portal>
+  //   );
   return (
     <div className="min-h-screen p-6 md:p-8 space-y-3">
       <h1 className="text-2xl font-medium">
@@ -148,47 +149,92 @@ export const App: React.FC = () => {
             Grid
           </Tab>
           <Tab
-            onClick={() => setDisplay("column")}
-            selected={display == "column"}
+            onClick={() => setDisplay("legacy")}
+            selected={display == "legacy"}
           >
-            Col
+            Legacy
           </Tab>
         </Tabs>
       </div>
+      
+      {display === "grid" && 
+        <div className="pt-2">
+          {shows &&
+            Array.from(organizeShowsByDayOfWeek(shows)).map(
+              ([dayOfWeek, shows]) => {
+                if (dayOfWeek === "NoDayOfWeek" && shows.length === 0) {
+                  return null;
+                }
 
-      <div
-        className={cn(
-          "grid-cols-1 grid gap-6",
-          display === "grid" && "md:grid-cols-2"
-        )}
-      >
-        {shows &&
-          Array.from(organizeShowsByDayOfWeek(shows)).map(
-            ([dayOfWeek, shows], index) => {
-              if (dayOfWeek === "NoDayOfWeek" && shows.length === 0)
-                return null;
-              return (
-                <div key={index} className="bg-white rounded">
-                  <h1 className="sticky top-0 bg-white border-b-2 z-10 font-bold py-2 px-3 mt-1">
-                    {dayOfWeek === "NoDayOfWeek"
-                      ? "No Airing Day Yet"
-                      : dayOfWeek}
-                  </h1>
-                  <div
-                    className={cn(
-                      "overflow-y-auto",
-                      display === "grid" && "max-h-[67vh] "
+                return (
+                  <Disclosure defaultOpen={true}>
+                    {({ open }) => (
+                      <div className="space-y-3 mb-8">
+                        <div className="flex items-start space-x-3">
+                          <Disclosure.Button className={cn(
+                            "duration-150 rounded border-2 !p-1 border-gray-400",
+                            "hover:shadow active:bg-gray-400 not-focus-visible:not-active:focus:ring-2",
+                            "focus-ring ring-gray-500 ring-offset-gray-300"
+                          )}>
+                            {open ? <IoChevronUp /> : <IoChevronDown />}
+                          </Disclosure.Button>
+
+                          <h2 className="font-semibold text-2xl">
+                            {dayOfWeek === "NoDayOfWeek"
+                              ? "No Airing Day Yet"
+                              : dayOfWeek}
+                          </h2>
+                        </div>
+
+                        <Disclosure.Panel className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                          {shows?.map((show) => (
+                            <Show showId={show.id} key={show.id} />
+                          ))}
+                        </Disclosure.Panel>
+                      </div>
                     )}
-                  >
-                    {shows.map((show) => (
-                      <Show showId={show.id} key={show.id} />
-                    ))}
-                  </div>
-                </div>
-              );
-            }
+                  </Disclosure>
+                );
+              }
+            )}
+        </div>
+      }
+
+      {display === "legacy" && 
+        <div
+          className={cn(
+            "grid-cols-1 grid gap-6",
+            "md:grid-cols-2"
           )}
-      </div>
+        >
+          {shows &&
+            Array.from(organizeShowsByDayOfWeek(shows)).map(
+              ([dayOfWeek, shows], index) => {
+                if (dayOfWeek === "NoDayOfWeek" && shows.length === 0)
+                  return null;
+                return (
+                  <div key={index} className="bg-white rounded">
+                    <h1 className="sticky top-0 bg-white border-b-2 z-10 font-bold py-2 px-3 mt-1">
+                      {dayOfWeek === "NoDayOfWeek"
+                        ? "No Airing Day Yet"
+                        : dayOfWeek}
+                    </h1>
+                    <div
+                      className={cn(
+                        "overflow-y-auto",
+                        "md:max-h-[67vh] "
+                      )}
+                    >
+                      {shows.map((show) => (
+                        <Show showId={show.id} key={show.id} />
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+            )}
+        </div>
+      }
     </div>
   );
 };
