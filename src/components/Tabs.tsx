@@ -8,7 +8,7 @@ export const Tabs = ({ className, children, ...props }: DivProps) => {
   const composite = useCompositeState();
 
   return (
-  <Composite {...composite} className={cn("bg-gray-200 px-1 py-1 rounded-lg flex space-x-5", className)} {...props}>
+  <Composite {...composite} className={cn("bg-gray-200 px-1 py-1 rounded-lg flex space-x-2", className)} {...props}>
     {/* This is to pass the composite state to all the Tabs passed as children */}
     {
       React.Children.map(children, (child) => {
