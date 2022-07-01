@@ -37,7 +37,7 @@ export const Show = ({ showId }: { showId: ShowType["id"] }) => {
           }}
         />
         <div className="flex-grow mx-3 my-[8px] space-y-1 block text-gray-700">
-          <h2 className="text-black font-semibold">
+          <h3 className="text-black font-semibold">
             <a 
               className="hover:underline focus:underline" 
               href={show.url} 
@@ -46,7 +46,7 @@ export const Show = ({ showId }: { showId: ShowType["id"] }) => {
             >
                 {show.title.preferred}
             </a>
-          </h2>
+          </h3>
 
           {show.airing.nextAiringEp &&
             // This conditional below is to check that the airing date is in the future and not the past
