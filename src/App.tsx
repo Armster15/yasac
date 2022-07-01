@@ -138,7 +138,7 @@ export const App: React.FC = () => {
       style={gradient}
     >
       {/* YASAC Logo */}
-      <h1>
+      <h1 className="flex justify-center md:justify-start">
         <abbr className="sr-only" title="Yet Another Seasonal Anime Chart">YASAC</abbr>
         <img className="w-[250px] py-2" src={Logo} aria-hidden={true} />
       </h1>
