@@ -140,7 +140,7 @@ export const App: React.FC = () => {
       {/* YASAC Logo */}
       <h1 className="flex justify-center md:justify-start">
         <abbr className="sr-only" title="Yet Another Seasonal Anime Chart">YASAC</abbr>
-        <img className="w-[250px] py-2" src={Logo} aria-hidden={true} />
+        <img className="w-[250px] py-2" src={Logo} alt="YASAC Logo" aria-hidden={true} />
       </h1>
 
       {/* Season Picker */}

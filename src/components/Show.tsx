@@ -28,6 +28,7 @@ export const Show = ({ showId }: { showId: ShowType["id"] }) => {
           className="object-cover rounded-l"
           alt={`Cover Image for ${show.title.preferred}`}
           loading="lazy"
+          aria-hidden={true}
           onError={(e) => {
             // If the placeholder does not load, this prevents an infinite loop of failing to load the placeholder
             if (e.currentTarget.src !== PlaceholderImage) {
