@@ -134,14 +134,10 @@ export const App: React.FC = () => {
       className="min-h-screen p-6 md:p-8 space-y-3" 
       style={gradient}
     >
-      <img className="w-[250px] py-2" src={Logo} />
-      {/* <h1 className="text-2xl font-medium">
-        <span className="font-bold">Y</span>et{" "}
-        <span className="font-bold">A</span>nother{" "}
-        <span className="font-bold">S</span>easonal{" "}
-        <span className="font-bold">A</span>nime{" "}
-        <span className="font-bold">C</span>hart{" "}
-      </h1> */}
+      <h1>
+        <abbr className="sr-only" title="Yet Another Seasonal Anime Chart">YASAC</abbr>
+        <img className="w-[250px] py-2" src={Logo} aria-hidden={true} />
+      </h1>
       <SeasonPicker
         season={season}
         setSeason={setSeason}
