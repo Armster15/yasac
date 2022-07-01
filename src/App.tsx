@@ -71,11 +71,38 @@ export const App: React.FC = () => {
     setShows(_shows);
   }, [data]);
 
-  // Page background color
+  // Page background color (for fallback if gradient does not work)
   useEffect(
     () => document.querySelector("html")!.classList.add("bg-gray-300"),
     []
   );
+
+  // Page gradient
+  let gradient: React.CSSProperties = {}
+  if(season === "WINTER") {
+    gradient = {
+      backgroundColor: `rgb(177,207,232)`,
+      backgroundImage: `linear-gradient(90deg, rgba(177,207,232,1) 15%, rgba(195,219,240,1) 58%, rgba(198,220,236,1) 85%)`
+    }
+  }
+  else if(season === "SPRING") {
+    gradient = {
+      backgroundColor: `rgb(114,238,184)`,
+      backgroundImage: `linear-gradient(90deg, rgba(114,238,184,1) 0%, rgba(135,235,200,1) 53%, rgba(123,227,208,1) 91%)`
+    }
+  }
+  else if(season === "SUMMER") {
+    gradient = {
+      backgroundColor: `rgb(252,228,131)`,
+      backgroundImage: `linear-gradient(90deg, rgba(252,228,131,1) 12%, rgba(255,245,141,1) 44%, rgba(252,245,141,1) 79%, rgba(252,255,151,1) 95%)`
+    }
+  }
+  else if(season === "FALL") {
+    gradient = {
+      backgroundColor: `background: rgb(255,174,151)`,
+      backgroundImage: `linear-gradient(90deg, rgba(255,174,151,1) 4%, rgba(251,182,141,1) 30%, rgba(255,187,119,1) 87%)`,
+    }
+  }
 
   if (loading || error) {
     return (
@@ -101,32 +128,6 @@ export const App: React.FC = () => {
         </div>
       </Portal>
     );
-  }
-
-  let gradient: React.CSSProperties = {}
-  if(season === "WINTER") {
-    gradient = {
-      backgroundColor: `rgb(177,207,232)`,
-      backgroundImage: `linear-gradient(90deg, rgba(177,207,232,1) 15%, rgba(195,219,240,1) 58%, rgba(198,220,236,1) 85%)`
-    }
-  }
-  else if(season === "SPRING") {
-    gradient = {
-      backgroundColor: `rgb(114,238,184)`,
-      backgroundImage: `linear-gradient(90deg, rgba(114,238,184,1) 0%, rgba(135,235,200,1) 53%, rgba(123,227,208,1) 91%)`
-    }
-  }
-  else if(season === "SUMMER") {
-    gradient = {
-      backgroundColor: `rgb(252,228,131)`,
-      backgroundImage: `linear-gradient(90deg, rgba(252,228,131,1) 12%, rgba(255,245,141,1) 44%, rgba(252,245,141,1) 79%, rgba(252,255,151,1) 95%)`
-    }
-  }
-  else if(season === "FALL") {
-    gradient = {
-      backgroundColor: `background: rgb(255,174,151)`,
-      backgroundImage: `linear-gradient(90deg, rgba(255,174,151,1) 4%, rgba(251,182,141,1) 30%, rgba(255,187,119,1) 87%)`,
-    }
   }
 
   return (
