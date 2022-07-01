@@ -3,6 +3,12 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { App } from "./App";
 
+/* Import tota11y if in dev mode */
+if(import.meta.env.DEV) {
+  // @ts-ignore
+  await import("@khanacademy/tota11y")
+}
+
 import {
   ApolloClient,
   InMemoryCache,
