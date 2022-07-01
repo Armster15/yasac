@@ -104,6 +104,7 @@ export const App: React.FC = () => {
     }
   }
 
+  // Loading/error screen
   if (loading || error) {
     return (
       <Portal>
@@ -130,15 +131,19 @@ export const App: React.FC = () => {
     );
   }
 
+  // Actual application
   return (
     <div 
       className="min-h-screen p-6 md:p-8 space-y-3" 
       style={gradient}
     >
+      {/* YASAC Logo */}
       <h1>
         <abbr className="sr-only" title="Yet Another Seasonal Anime Chart">YASAC</abbr>
         <img className="w-[250px] py-2" src={Logo} aria-hidden={true} />
       </h1>
+
+      {/* Season Picker */}
       <SeasonPicker
         season={season}
         setSeason={setSeason}
@@ -146,6 +151,7 @@ export const App: React.FC = () => {
         setYear={setYear}
       />
 
+      {/* Add Tags Input (Hype, Will Watch, Maybe, etc.) */}
       <div className="flex space-x-3">
         <Select
           className="flex-1"
@@ -175,6 +181,7 @@ export const App: React.FC = () => {
           ]}
         />
 
+        {/* Grid/Legacy Mode toggle */}
         <Tabs>
           <Tab selected={display == "grid"} onClick={() => setDisplay("grid")}>
             Grid
@@ -187,7 +194,8 @@ export const App: React.FC = () => {
           </Tab>
         </Tabs>
       </div>
-      
+        
+      {/* Grid view for airing anime */}
       {display === "grid" && 
         <div className="pt-2">
           {shows &&
@@ -231,6 +239,7 @@ export const App: React.FC = () => {
         </div>
       }
 
+      {/* Legacy view for airing anime */}
       {display === "legacy" && 
         <div
           className={cn(
