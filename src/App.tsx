@@ -14,6 +14,7 @@ import { formatShows, organizeShowsByDayOfWeek } from "./utils/format-shows";
 import { Tabs, Tab } from "./components/Tabs";
 import { SeasonPicker } from "./components/SeasonPicker";
 import { useFetchShows } from "./hooks/use-fetch-shows";
+import Logo from "./media/logo.svg";
 
 const filterSelectLabels: { [key in Status]: string } = {
   hype: "Hype",
@@ -22,6 +23,7 @@ const filterSelectLabels: { [key in Status]: string } = {
   "not-watching": "Not Watching",
   "no-status": "No Status",
 };
+
 
 export const App: React.FC = () => {
   const [year, setYear] = useState<number | undefined>(undefined);
@@ -75,7 +77,7 @@ export const App: React.FC = () => {
     []
   );
 
-  if (loading || error)
+  if (loading || error) {
     return (
       <Portal>
         <div className="fixed inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center text-white p-12">
@@ -99,15 +101,47 @@ export const App: React.FC = () => {
         </div>
       </Portal>
     );
+  }
+
+  let gradient: React.CSSProperties = {}
+  if(season === "WINTER") {
+    gradient = {
+      backgroundColor: `rgb(177,207,232)`,
+      backgroundImage: `linear-gradient(90deg, rgba(177,207,232,1) 15%, rgba(195,219,240,1) 58%, rgba(198,220,236,1) 85%)`
+    }
+  }
+  else if(season === "SPRING") {
+    gradient = {
+      backgroundColor: `rgb(114,238,184)`,
+      backgroundImage: `linear-gradient(90deg, rgba(114,238,184,1) 0%, rgba(135,235,200,1) 53%, rgba(123,227,208,1) 91%)`
+    }
+  }
+  else if(season === "SUMMER") {
+    gradient = {
+      backgroundColor: `rgb(252,228,131)`,
+      backgroundImage: `linear-gradient(90deg, rgba(252,228,131,1) 12%, rgba(255,245,141,1) 44%, rgba(252,245,141,1) 79%, rgba(252,255,151,1) 95%)`
+    }
+  }
+  else if(season === "FALL") {
+    gradient = {
+      backgroundColor: `background: rgb(255,174,151)`,
+      backgroundImage: `linear-gradient(90deg, rgba(255,174,151,1) 4%, rgba(251,182,141,1) 30%, rgba(255,187,119,1) 87%)`,
+    }
+  }
+
   return (
-    <div className="min-h-screen p-6 md:p-8 space-y-3">
-      <h1 className="text-2xl font-medium">
+    <div 
+      className="min-h-screen p-6 md:p-8 space-y-3" 
+      style={gradient}
+    >
+      <img className="w-[250px] py-2" src={Logo} />
+      {/* <h1 className="text-2xl font-medium">
         <span className="font-bold">Y</span>et{" "}
         <span className="font-bold">A</span>nother{" "}
         <span className="font-bold">S</span>easonal{" "}
         <span className="font-bold">A</span>nime{" "}
         <span className="font-bold">C</span>hart{" "}
-      </h1>
+      </h1> */}
       <SeasonPicker
         season={season}
         setSeason={setSeason}
@@ -174,7 +208,7 @@ export const App: React.FC = () => {
                           <Disclosure.Button className={cn(
                             "duration-150 rounded border-2 !p-1 border-gray-400",
                             "hover:shadow active:bg-gray-400 not-focus-visible:not-active:focus:ring-2",
-                            "focus-ring ring-gray-500 ring-offset-gray-300"
+                            "focus-ring ring-gray-500 ring-offset-white"
                           )}>
                             {open ? <IoChevronUp /> : <IoChevronDown />}
                           </Disclosure.Button>
