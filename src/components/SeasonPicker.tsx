@@ -34,7 +34,7 @@ export const SeasonPicker = ({ season: seasonState, setSeason, year, setYear }: 
             selected={seasonState === season}
             onClick={() => setSeason(season)}
           >
-            <span className="flex space-x-1 items-center justify-center">
+            <span className="flex flex-col sm:flex-row space-x-1 items-center justify-center">
               <span className="text-2xl">{icon}</span>
               <span className="text-sm">{capitalize(season)}</span>
             </span>
